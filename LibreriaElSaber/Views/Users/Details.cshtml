@@ -1,0 +1,33 @@
+﻿@page
+@model LibreriaElSaber.Models.User
+@{
+}
+
+<h1>User Details</h1>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CorreoElectronico)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CorreoElectronico)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Contrasena)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Contrasena)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
