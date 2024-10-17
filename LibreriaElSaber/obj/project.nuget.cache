@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WM0x6nG0s2TLq9tXiDXw4zX2b7FkKPeCnBCh8nuYne+sRJWuIE2QDLQ7F2DLqxdz+vmkcy/mR2CCyY5TQYaMMQ==",
+  "dgSpecHash": "OcPbb4AhKdcMROulHdv8JHW8VhCPYFOYsyIwFQRF7DfQeF3pXuRr+tada9Nc7O1n5RkcybsOjsQKOt/e7Ds0cw==",
   "success": true,
-  "projectFilePath": "C:\\Source\\Practica2\\LibreriaElSaber\\LibreriaElSaber.csproj",
+  "projectFilePath": "C:\\Source\\hppp\\LibreriaElSaber\\LibreriaElSaber.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jrosario\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\jrosario\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
