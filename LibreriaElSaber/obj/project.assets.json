@@ -7722,11 +7722,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Source\\Practica2\\LibreriaElSaber\\LibreriaElSaber.csproj",
+      "projectUniqueName": "C:\\Source\\hppp\\LibreriaElSaber\\LibreriaElSaber.csproj",
       "projectName": "LibreriaElSaber",
-      "projectPath": "C:\\Source\\Practica2\\LibreriaElSaber\\LibreriaElSaber.csproj",
+      "projectPath": "C:\\Source\\hppp\\LibreriaElSaber\\LibreriaElSaber.csproj",
       "packagesPath": "C:\\Users\\jrosario\\.nuget\\packages\\",
-      "outputPath": "C:\\Source\\Practica2\\LibreriaElSaber\\obj\\",
+      "outputPath": "C:\\Source\\hppp\\LibreriaElSaber\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
