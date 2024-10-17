@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LibreriaElSaber")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78278efc5cdf12c7eaf9669cb9f15b88c4e77fd5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd59f5f5f00ffd5570c727cced658afbc3153198")]
 [assembly: System.Reflection.AssemblyProductAttribute("LibreriaElSaber")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LibreriaElSaber")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
