@@ -1,76 +1,186 @@
-using LibreriaElSaber.Models;
+using LibreriaElSaber.Data;
+using LibreriaElSaber.Models; // Ajusta según tu espacio de nombres
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibreriaElSaber.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PrestamoController : ControllerBase
+    public class PrestamoController : Controller
     {
-        private readonly List<Prestamo> _prestamos;
+        private readonly LibreriaElSaberContext _context;
+        private readonly ILogger<PrestamoController> _logger;
 
-        public PrestamoController()
+        public PrestamoController(LibreriaElSaberContext context, ILogger<PrestamoController> logger)
         {
-            _prestamos = new List<Prestamo>
-            {
-                new Prestamo { IdPrestamo = 1, IdLibro = 1, IdUsuario = 1, FechaPrestamo = DateTime.Now, FechaDevolucion = DateTime.Now.AddDays(7), Devuelto = false },
-                new Prestamo { IdPrestamo = 2, IdLibro = 2, IdUsuario = 2, FechaPrestamo = DateTime.Now, FechaDevolucion = DateTime.Now.AddDays(14), Devuelto = false },
-                new Prestamo { IdPrestamo = 3, IdLibro = 3, IdUsuario = 3, FechaPrestamo = DateTime.Now, FechaDevolucion = DateTime.Now.AddDays(21), Devuelto = true }
-            };
+            _context = context;
+            _logger = logger;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Prestamo>> GetPrestamos()
+        public async Task<IActionResult> Index()
         {
-            return _prestamos;
+            return View(await _context.Prestamos.ToListAsync());
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Prestamo> GetPrestamo(int id)
+        public IActionResult Create()
         {
-            var prestamo = _prestamos.Find(p => p.IdPrestamo == id);
-            if (prestamo == null)
-            {
-                return NotFound();
-            }
-            return prestamo;
+            ViewBag.ListaLibros = new SelectList(_context.Libros, "Id", "Titulo"); // Asegúrate de tener la lista de libros disponible
+            ViewBag.ListaUsuarios = new SelectList(_context.Usuarios, "IdUsuario", "Nombre"); // Asegúrate de tener la lista de usuarios disponible
+
+            return View();
         }
 
         [HttpPost]
-        public ActionResult<Prestamo> CreatePrestamo(Prestamo prestamo)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Prestamo prestamo)
         {
-            prestamo.IdPrestamo = _prestamos.Count + 1;
-            _prestamos.Add(prestamo);
-            return CreatedAtAction(nameof(GetPrestamo), new { id = prestamo.IdPrestamo }, prestamo);
+            if (ModelState.IsValid)
+            {
+                prestamo.FechaPrestamo = DateTime.Now;
+                prestamo.FechaDevolucion = DateTime.Now.AddDays(7); // Devolución en 7 días
+                prestamo.Devuelto = false; // Por defecto, no devuelto
+
+                _context.Add(prestamo);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewBag.ListaLibros = new SelectList(_context.Libros, "Id", "Titulo", prestamo.IdLibro);
+            ViewBag.ListaUsuarios = new SelectList(_context.Usuarios, "IdUsuario", "Nombre", prestamo.IdUsuario);
+
+            return View(prestamo);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdatePrestamo(int id, Prestamo updatedPrestamo)
+        public async Task<IActionResult> Devolver(int? id)
         {
-            var prestamo = _prestamos.Find(p => p.IdPrestamo == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var prestamo = await _context.Prestamos.FindAsync(id);
+
             if (prestamo == null)
             {
                 return NotFound();
             }
-            prestamo.IdLibro = updatedPrestamo.IdLibro;
-            prestamo.IdUsuario = updatedPrestamo.IdUsuario;
-            prestamo.FechaPrestamo = updatedPrestamo.FechaPrestamo;
-            prestamo.FechaDevolucion = updatedPrestamo.FechaDevolucion;
-            prestamo.Devuelto = updatedPrestamo.Devuelto;
-            return NoContent();
+
+            prestamo.Devuelto = true;
+            prestamo.FechaDevolucion = DateTime.Now;
+
+            _context.Update(prestamo);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeletePrestamo(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            var prestamo = _prestamos.Find(p => p.IdPrestamo == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var prestamo = await _context.Prestamos.FindAsync(id);
             if (prestamo == null)
             {
                 return NotFound();
             }
-            _prestamos.Remove(prestamo);
-            return NoContent();
+
+            ViewBag.ListaLibros = new SelectList(_context.Libros, "Id", "Titulo", prestamo.IdLibro);
+            ViewBag.ListaUsuarios = new SelectList(_context.Usuarios, "IdUsuario", "Nombre", prestamo.IdUsuario);
+
+            return View(prestamo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Prestamo prestamo)
+        {
+            if (id != prestamo.IdPrestamo)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(prestamo);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PrestamoExists(prestamo.IdPrestamo))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewBag.ListaLibros = new SelectList(_context.Libros, "Id", "Titulo", prestamo.IdLibro);
+            ViewBag.ListaUsuarios = new SelectList(_context.Usuarios, "IdUsuario", "Nombre", prestamo.IdUsuario);
+
+            return View(prestamo);
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var prestamo = await _context.Prestamos
+                            .Include(p => p.Libro) // Incluye información sobre el libro
+                            .Include(p => p.Usuario) // Incluye información sobre el usuario
+                            .FirstOrDefaultAsync(m => m.IdPrestamo == id);
+            if (prestamo == null)
+            {
+                return NotFound();
+            }
+
+            return View(prestamo);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var prestamo = await _context.Prestamos.FindAsync(id);
+            _context.Prestamos.Remove(prestamo);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool PrestamoExists(int id)
+        {
+            return _context.Prestamos.Any(e => e.IdPrestamo == id);
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var prestamo = await _context.Prestamos
+                            .Include(p => p.Libro) // Incluye información sobre el libro
+                            .Include(p => p.Usuario) // Incluye información sobre el usuario
+                            .FirstOrDefaultAsync(m => m.IdPrestamo == id);
+            if (prestamo == null)
+            {
+                return NotFound();
+            }
+
+            return View(prestamo);
         }
     }
 }

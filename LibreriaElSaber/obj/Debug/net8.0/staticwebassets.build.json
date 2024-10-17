@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rC1yiJmqN/aySIwDzpnQprYuFy7nuyXHGoAseqzdjXs=",
+  "Hash": "eeHmmap2d/ryOFGYuNUXt3YrqBbU8LsJwW5xWPvDbRw=",
   "Source": "LibreriaElSaber",
   "BasePath": "_content/LibreriaElSaber",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\60d0c8d2-3686-420a-8ef7-f3464917af64.png"
+    },
+    {
+      "Identity": "C:\\Source\\hppp\\LibreriaElSaber\\wwwroot\\images\\701ed761-463f-4640-bd5a-268bfdb9da79.jpg",
+      "SourceId": "LibreriaElSaber",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Source\\hppp\\LibreriaElSaber\\wwwroot\\",
+      "BasePath": "_content/LibreriaElSaber",
+      "RelativePath": "images/701ed761-463f-4640-bd5a-268bfdb9da79.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\701ed761-463f-4640-bd5a-268bfdb9da79.jpg"
     },
     {
       "Identity": "C:\\Source\\hppp\\LibreriaElSaber\\wwwroot\\images\\b1b6681e-c31c-4770-936b-fbbee149dd69.png",
