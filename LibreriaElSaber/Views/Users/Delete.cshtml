@@ -1,0 +1,27 @@
+﻿@*
+
+*@
+@model User
+
+<h1>Delete User</h1>
+
+<form asp-action="Delete">
+    <div class="form-group">
+        <label asp-for="IdUsuario" class="control-label"></label>
+        <input asp-for="IdUsuario" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label"></label>
+        <input asp-for="Nombre" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="CorreoElectronico" class="control-label"></label>
+        <input asp-for="CorreoElectronico" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="TipoUsuario" class="control-label"></label>
+        <input asp-for="TipoUsuario" class="form-control" readonly />
+    </div>
+    
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>

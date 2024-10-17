@@ -10,6 +10,7 @@ namespace LibreriaElSaber.Models
         public string CorreoElectronico { get; set; }
         public string Contrasena { get; set; }
         public string TipoUsuario { get; set; }
+        public string Imagen { get; set; } // New field for uploading image
 
         public virtual ICollection<InscripcionEvento> InscripcionesEventos { get; set; }
         public virtual ICollection<Prestamo> Prestamos { get; set; }

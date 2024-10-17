@@ -13,6 +13,18 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Source\\Practica2\\LibreriaElSaber\\wwwroot\\images\\0b831e6b-a343-44b0-8e06-11d3bd8b3383.jpg",
+      "PackagePath": "staticwebassets\\images\\0b831e6b-a343-44b0-8e06-11d3bd8b3383.jpg"
+    },
+    {
+      "Id": "C:\\Source\\Practica2\\LibreriaElSaber\\wwwroot\\images\\60d0c8d2-3686-420a-8ef7-f3464917af64.png",
+      "PackagePath": "staticwebassets\\images\\60d0c8d2-3686-420a-8ef7-f3464917af64.png"
+    },
+    {
+      "Id": "C:\\Source\\Practica2\\LibreriaElSaber\\wwwroot\\images\\b1b6681e-c31c-4770-936b-fbbee149dd69.png",
+      "PackagePath": "staticwebassets\\images\\b1b6681e-c31c-4770-936b-fbbee149dd69.png"
+    },
+    {
       "Id": "C:\\Source\\Practica2\\LibreriaElSaber\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

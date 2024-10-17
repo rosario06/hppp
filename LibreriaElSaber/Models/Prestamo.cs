@@ -15,5 +15,5 @@ namespace LibreriaElSaber.Models
 
         public virtual Book Libro { get; set; } // Crucial navigation property
         public virtual User Usuario { get; set; }
-    }
+    } 
 }

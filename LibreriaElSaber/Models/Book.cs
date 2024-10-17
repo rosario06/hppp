@@ -11,6 +11,7 @@ namespace LibreriaElSaber.Models
         public int AnioPublicacion { get; set; }
         public int CantidadDisponible { get; set; }
         public int CantidadTotal { get; set; }
+        public string Imagen { get; set; } // New field for uploading image
 
         public virtual ICollection<Prestamo> Prestamos { get; set; }
         public virtual ICollection<Compra> Compras { get; set; }
