@@ -1,0 +1,26 @@
+@model IEnumerable<LibreriaElSaber.Models.Book>
+
+<h4>Historico de Libros</h4>
+<hr />
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="@item.Imagen" class="card-img-top" alt="Book Cover" width="150" height="500">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Titulo</h5>
+                    <p class="card-text">Autor: @item.Autor</p>
+                    <p class="card-text">ISBN: @item.ISBN</p>
+                    <p class="card-text">Genero: @item.Genero</p>
+                    <p class="card-text">Cantidad Disponible: @item.CantidadDisponible</p>
+                    <p class="card-text">Cantidad Total: @item.CantidadTotal</p>
+                    <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

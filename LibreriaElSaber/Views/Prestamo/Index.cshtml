@@ -12,7 +12,9 @@
             <th>Usuario</th>
             <th>Fecha de Préstamo</th>
             <th>Fecha de Devolución</th>
-            <th>Devuelto</th>
+            <th>Estado</th>
+            <th>Tiempo Restante / Vencido</th>
+            <!--th>Devuelto</th-->
             <th>Acciones</th>
         </tr>
     </thead>
@@ -32,8 +34,52 @@
                 @Html.DisplayFor(modelItem => item.FechaDevolucion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Devuelto)
+                    @if (item.FechaDevolucion > DateTime.Now && !item.Devuelto)
+                {
+                        <span class="text-warning">Próximo a vencer</span>
+                    }
+                    else if (item.FechaDevolucion < DateTime.Now && !item.Devuelto)
+                    {
+                        <span class="text-danger">Vencido</span>
+                    }
+                    else if (item.Devuelto)
+                    {
+                        <span class="text-success">Devuelto</span>
+                    }
+                    else
+                    {
+                        <span class="text-success">En tiempo</span>
+                    }
             </td>
+            <td>
+                    @{
+                        TimeSpan tiempoRestante;
+                        string resultado;
+
+                        if (item.FechaDevolucion > DateTime.Now && !item.Devuelto)
+                        {
+                            tiempoRestante = item.FechaDevolucion - DateTime.Now;
+                            resultado = tiempoRestante.ToString(@"hh\:mm\:ss"); // Formato de horas, minutos y segundos
+                        }
+                        else if (item.FechaDevolucion < DateTime.Now && !item.Devuelto)
+                        {
+                            tiempoRestante = DateTime.Now - item.FechaDevolucion;
+                            resultado = tiempoRestante.ToString(@"hh\:mm\:ss"); // Formato de horas, minutos y segundos
+                        }
+                        else if (item.Devuelto)
+                        {
+                            resultado = "";
+                        }
+                        else
+                        {
+                            resultado = "0:00:00"; // Cuando son iguales
+                        }
+                    }
+                    <span>@resultado</span> <!-- Muestra el resultado en un elemento HTML -->
+            </td>
+                <!--td>
+                @Html.DisplayFor(modelItem => item.Devuelto)
+            </td -->
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdPrestamo" class="btn btn-primary">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.IdPrestamo" class="btn btn-info">Details</a> |
