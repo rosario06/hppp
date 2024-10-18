@@ -2,18 +2,17 @@
 @model IEnumerable<LibreriaElSaber.Models.User>
 
 
-<h1>Usuarios</h1>
-
-<p><a asp-action="Create">Create New</a></p>
-<table class="table">
+<h4>Listado de Usuarios</h4>
+<hr />
+<p><a asp-action="Create" class="btn btn-success">Create New</a></p>
+<table  class="table table-bordered table-striped table-hover table-sm">
     <thead>
         <tr>
             <th>Nombre</th>
             <th>Correo Electrónico</th>
-            <th>TipoUsuario</th>
+            <th>Tipo Usuario</th>
             <th>Imagen</th>
             <th>Actions</th>
-        </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
@@ -24,9 +23,9 @@
                 <td>@Html.DisplayFor(modelItem => item.TipoUsuario)</td>
                 <td><img src="@item.Imagen" alt="User Image" width="50" height="50"></td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdUsuario">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.IdUsuario">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IdUsuario">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-primary">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdUsuario" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
