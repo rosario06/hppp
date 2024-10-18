@@ -19,7 +19,10 @@ namespace LibreriaElSaber.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Prestamos.ToListAsync());
+            return View(await _context.Prestamos
+                .Include(p => p.Libro) // Incluye el libro relacionado
+                .Include(p => p.Usuario) // Incluye el usuario relacionado
+                .ToListAsync());
         }
 
         public IActionResult Create()
@@ -34,8 +37,22 @@ namespace LibreriaElSaber.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Prestamo prestamo)
         {
-            if (ModelState.IsValid)
+            if (prestamo.IdLibro != 0  && prestamo.IdUsuario != 0)
             {
+                var libro = await _context.Libros.FindAsync(prestamo.IdLibro);//busca el libro
+
+
+                if (libro.CantidadDisponible <= 0)
+                {
+                    ModelState.AddModelError("", "El libro no está disponible para préstamo.");
+                    return View(prestamo);
+                }
+
+                // Procesar el préstamo
+                libro.CantidadDisponible -= 1; // Disminuir la cantidad disponible
+                _context.Update(libro); // Asegúrate de actualizar el libro en el contexto
+
+
                 prestamo.FechaPrestamo = DateTime.Now;
                 prestamo.FechaDevolucion = DateTime.Now.AddDays(7); // Devolución en 7 días
                 prestamo.Devuelto = false; // Por defecto, no devuelto
@@ -66,9 +83,14 @@ namespace LibreriaElSaber.Controllers
                 return NotFound();
             }
 
+
+            var libro = await _context.Libros.FindAsync(prestamo.IdLibro);
+            libro.CantidadDisponible += 1; // Incrementar la cantidad disponible
+
             prestamo.Devuelto = true;
             prestamo.FechaDevolucion = DateTime.Now;
 
+            _context.Update(libro);
             _context.Update(prestamo);
             await _context.SaveChangesAsync();
 
@@ -103,7 +125,7 @@ namespace LibreriaElSaber.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (prestamo.IdLibro != 0 && prestamo.IdUsuario != 0)
             {
                 try
                 {
@@ -153,7 +175,16 @@ namespace LibreriaElSaber.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+
             var prestamo = await _context.Prestamos.FindAsync(id);
+
+            var libro = await _context.Libros.FindAsync(prestamo.IdLibro);
+            if (!prestamo.Devuelto) {
+                libro.CantidadDisponible += 1; // Incrementar la cantidad disponible
+                _context.Update(libro);
+            }
+
+
             _context.Prestamos.Remove(prestamo);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

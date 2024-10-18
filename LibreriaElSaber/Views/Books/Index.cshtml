@@ -1,39 +1,20 @@
 ﻿@model IEnumerable<LibreriaElSaber.Models.Book>
 
+<h4>Historico de Libros</h4>
+<hr />
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-striped table-hover table-sm">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Autor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ISBN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Editorial)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AnioPublicacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CantidadDisponible)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CantidadTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Imagen)
-            </th>
-            <th></th>
+            <th>Titulo </th>
+            <th>Autor</th>
+            <th>ISBN</th>
+            <th>Genero</th>
+            <th>Cantidad Disponible</th>
+            <th>Cantidad Total</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -52,24 +33,15 @@
                 @Html.DisplayFor(modelItem => item.Genero)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Editorial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnioPublicacion)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.CantidadDisponible)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CantidadTotal)
             </td>
             <td>
-                    <img src="@item.Imagen" alt="User Image" width="50" height="50">
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }

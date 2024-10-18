@@ -43,8 +43,17 @@ namespace LibreriaElSaber.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Compra compra)
         {
-            if (ModelState.IsValid)
+            if (compra.IdLibro != 0  && compra.IdUsuario != 0)
             {
+
+                var libro = await _context.Libros.FindAsync(compra.IdLibro);
+
+                // Procesar la compra
+                libro.CantidadTotal += 1; // Aumentar la Cantidad Total
+                libro.CantidadDisponible += 1; // Aumentar la cantidad disponible
+                _context.Update(libro); // Actualizar libro
+
+
                 _context.Add(compra);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

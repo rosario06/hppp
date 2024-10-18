@@ -1,32 +1,30 @@
 ﻿@model IEnumerable<LibreriaElSaber.Models.Prestamo>
 
+<h4>Historico de Prestamos</h4>
+<hr />
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-striped table-hover table-sm">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaPrestamo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaDevolucion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Devuelto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Libro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuario)
-            </th>
-            <th></th>
+            <th>Libro</th>
+            <th>Usuario</th>
+            <th>Fecha de Préstamo</th>
+            <th>Fecha de Devolución</th>
+            <th>Devuelto</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Libro.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Nombre)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FechaPrestamo)
             </td>
@@ -37,15 +35,13 @@
                 @Html.DisplayFor(modelItem => item.Devuelto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Libro.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.IdUsuario)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPrestamo">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdPrestamo">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdPrestamo">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.IdPrestamo" class="btn btn-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdPrestamo" class="btn btn-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdPrestamo" class="btn btn-danger">Delete</a>
+                @if (!item.Devuelto) // Solo si no ha sido devuelto
+                {
+                    <a asp-action="Devolver" asp-route-id="@item.IdPrestamo" class="btn btn-warning">Devolver</a>
+                }
             </td>
         </tr>
 }

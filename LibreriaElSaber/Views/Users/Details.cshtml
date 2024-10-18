@@ -1,33 +1,38 @@
-﻿@page
-@model LibreriaElSaber.Models.User
-@{
-}
+﻿@model LibreriaElSaber.Models.User
 
-<h1>User Details</h1>
-
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CorreoElectronico)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CorreoElectronico)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Contrasena)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Contrasena)
-        </dd>
-
-    </dl>
+<div class="container mt-4">
+    <h4>Detalles del Usuario</h4>
+    <hr />
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CorreoElectronico)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CorreoElectronico)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TipoUsuario)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TipoUsuario)
+            </dd>
+            <dt>
+               
+            </dt>
+            <dd>
+                <img src="@Model.Imagen" alt="User Image" width="200" height="200">
+            </dd>
+        </dl>
+    </div>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.IdUsuario" class="btn btn-primary">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
