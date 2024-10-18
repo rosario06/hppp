@@ -203,5 +203,12 @@ namespace LibreriaElSaber.Controllers
 
             return View(book);
         }
+
+        // Método para ver todos los libros en formato grid
+        public async Task<IActionResult> Grid()
+        {
+            var libros = await _context.Libros.ToListAsync();
+            return View(libros);
+        }
     }
 }

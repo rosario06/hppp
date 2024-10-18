@@ -22,6 +22,7 @@ namespace LibreriaElSaber.Controllers
             return View(await _context.Prestamos
                 .Include(p => p.Libro) // Incluye el libro relacionado
                 .Include(p => p.Usuario) // Incluye el usuario relacionado
+                .OrderByDescending(p => p.FechaPrestamo) // agregar Order by desc
                 .ToListAsync());
         }
 
